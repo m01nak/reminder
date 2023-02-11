@@ -3,11 +3,11 @@ package com.moinak.reminder.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DatabaseUtils {
+public class DatabaseConnectionHelper {
     
-    public static final DatabaseUtils INSTANCE = new DatabaseUtils();
+    public static final DatabaseConnectionHelper INSTANCE = new DatabaseConnectionHelper();
 
-    private DatabaseUtils () {}
+    private DatabaseConnectionHelper () {}
 
     public Connection getConnection() {
         Connection connection = null;

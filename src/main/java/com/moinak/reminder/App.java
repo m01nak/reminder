@@ -3,17 +3,12 @@ package com.moinak.reminder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 
-import com.moinak.reminder.utils.DatabaseUtils;
+import com.moinak.reminder.utils.DatabaseConnectionHelper;
 
-/**
- * Hello world!
- *
- */
 public class App {
     public static void main(String[] args) {
-        Connection connection = DatabaseUtils.INSTANCE.getConnection();
+        Connection connection = DatabaseConnectionHelper.INSTANCE.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         String currentKey = null;
@@ -21,6 +16,8 @@ public class App {
         try {
             ps = connection.prepareStatement("select * from dummy");
             rs = ps.executeQuery();
+            ps.close();
+            connection.close();
             while(rs.next()) {
                 currentKey = rs.getString("dummy_key");
                 currentValue = rs.getString("dummy_val");
