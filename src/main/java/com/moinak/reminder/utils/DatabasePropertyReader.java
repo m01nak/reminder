@@ -1,6 +1,6 @@
 package com.moinak.reminder.utils;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class DatabasePropertyReader {
@@ -10,8 +10,9 @@ public class DatabasePropertyReader {
     
     private DatabasePropertyReader() {
         try {
-            databaseProperties = null;
-            FileInputStream propertyInputStream = new FileInputStream("database.properties");
+            databaseProperties = new Properties();
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream propertyInputStream = loader.getResourceAsStream("database.properties");
             databaseProperties.load(propertyInputStream);
         } catch (Exception e) {
             System.out.println("Error while loading database properties!");

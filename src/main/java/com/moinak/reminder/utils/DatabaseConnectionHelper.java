@@ -13,8 +13,19 @@ public class DatabaseConnectionHelper {
         Connection connection = null;
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/default_db","moinak","9N&t*26&");  
+            String dbUrl = "jdbc:"
+                            +
+                            DatabasePropertyReader.INSTANCE.getDatabaseProperty("db.type") + "://"
+                            +
+                            DatabasePropertyReader.INSTANCE.getDatabaseProperty("db.host") + ":"
+                            +
+                            DatabasePropertyReader.INSTANCE.getDatabaseProperty("db.port") + "/"
+                            +
+                            DatabasePropertyReader.INSTANCE.getDatabaseProperty("db.name");
+            String dbUser = DatabasePropertyReader.INSTANCE.getDatabaseProperty("db.user");
+            String dbPass = DatabasePropertyReader.INSTANCE.getDatabaseProperty("db.pass");
+
+            connection = DriverManager.getConnection(dbUrl, dbUser, dbPass);  
         } catch (Exception dbException) {
             System.out.println("Encountered exception while creating connection to database! Find more below:");
             System.out.println(dbException);

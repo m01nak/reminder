@@ -16,14 +16,14 @@ public class App {
         try {
             ps = connection.prepareStatement("select * from dummy");
             rs = ps.executeQuery();
-            ps.close();
-            connection.close();
             while(rs.next()) {
                 currentKey = rs.getString("dummy_key");
                 currentValue = rs.getString("dummy_val");
-
+                
                 System.out.println("Key: " + currentKey + " Value: " + currentValue);
             }
+            ps.close();
+            connection.close();
         } catch (Exception appException) {
             System.out.println("Error while running app! Find more below: ");
             System.out.println(appException);
